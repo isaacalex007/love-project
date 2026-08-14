@@ -1,4 +1,9 @@
 import { motion, useReducedMotion } from 'framer-motion'
+import config from '../config'
+
+// When the floating soundtrack toggle is present, reserve space below the
+// screen's CTA so the toggle never overlaps a tap target.
+const soundtrackOn = config.soundtrack.enabled && Boolean(config.soundtrack.src)
 
 /**
  * Shared full-viewport step wrapper: a document page that slides in like
@@ -12,7 +17,7 @@ export default function PageShell({ children, className = '' }) {
       animate={{ opacity: 1, y: 0, rotate: 0 }}
       exit={reduced ? { opacity: 0 } : { opacity: 0, y: -40, rotate: -1.2 }}
       transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-      className={`relative min-h-dvh flex flex-col px-6 pt-10 pb-8 ${className}`}
+      className={`relative min-h-dvh flex flex-col px-6 pt-10 ${soundtrackOn ? 'pb-24' : 'pb-8'} ${className}`}
     >
       {children}
     </motion.section>

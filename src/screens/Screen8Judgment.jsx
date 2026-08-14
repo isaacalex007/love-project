@@ -62,7 +62,7 @@ export default function Screen8Judgment({ selections }) {
       </div>
 
       <h2 className="stamp-text text-sm text-wine text-center mt-4">{judgment.title}</h2>
-      <p className="font-display font-black text-4xl text-center text-rose mt-2 mb-6">
+      <p className="font-display font-semibold text-4xl text-center text-rose mt-2 mb-6">
         {judgment.granted}
       </p>
 

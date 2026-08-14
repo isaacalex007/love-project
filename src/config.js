@@ -15,12 +15,11 @@ const config = {
   her: {
     fullFirstName: 'Mọ́nísọ́lá',
     shortName: 'Ṣọ́lá',
-    surname: '[HER SURNAME]', // ⚠️ FILL — for the case caption "Barr. Mọ́nísọ́lá [Surname]"
+    surname: 'Olomola',
   },
   him: {
-    firstName: '[YOUR FIRST NAME]', // ⚠️ FILL
-    // ⚠️ FILL — international format, digits only, no "+" (e.g. "2348012345678")
-    whatsappNumber: '[YOUR WHATSAPP NUMBER]',
+    firstName: '[YOUR FIRST NAME]', // ⚠️ FILL — still missing!
+    whatsappNumber: '2348165868081',
   },
 
   // --------------------------------------------------------------------------
@@ -55,18 +54,16 @@ const config = {
 
   // --------------------------------------------------------------------------
   // Screen 2 — Exhibit A: evidence of interest
+  // A-1 is the photo (see photos.firstDate below); A-2 and A-3 are text.
   // --------------------------------------------------------------------------
   exhibitA: {
     tab: 'EXHIBIT A',
     title: 'EXHIBIT A — EVIDENCE OF INTEREST',
     intro: 'The Plaintiff submits the following into the record:',
-    firstDateDate: '[DATE OF FIRST DATE]', // ⚠️ FILL — e.g. "14th of June, 2026"
-    // ⚠️ FILL — a real detail: something she said, something you both laughed at,
-    // what she ordered. Specificity is the whole gesture.
-    specificMemory: '[ONE SPECIFIC MEMORY FROM THE DATE]',
-    herQuote: '[ONE THING SHE SAID THAT STUCK WITH YOU]', // ⚠️ FILL
+    itemA2:
+      'The record shows the Respondent* journals. The Plaintiff has since wondered, more than once, whether he ever made the page.',
     itemA3:
-      'The Plaintiff has, on multiple occasions, drafted messages to the Respondent, deleted them, and sent “hope your day is going well 😊” instead. The Court is asked to note this as evidence of interest poorly executed, not absence of interest.',
+      'The Plaintiff has, on multiple occasions, drafted messages to the Respondent, deleted them, and sent “how are you doing Monisola” instead. The Court is asked to note this as evidence of interest poorly executed, not absence of interest.',
     footnote: '*“Respondent” — you. The beautiful lawyer reading this. Yes, you.',
     nextButton: 'Exhibit B →',
   },
@@ -85,12 +82,12 @@ const config = {
     qualificationsTitle: 'QUALIFICATIONS OF THE PLAINTIFF',
     qualificationsNote: '(submitted with 92% confidence)',
     perks: [
-      'Founder — meaning: unreasonable persistence, now finally pointed in the right direction',
-      'Replies texts faster than your associates reply emails',
-      '[TRUE SPECIFIC PERK #1 — e.g. “makes a jollof that has ended arguments”]', // ⚠️ FILL
-      '[TRUE SPECIFIC PERK #2]', // ⚠️ FILL
-      'Will learn the difference between your “I’m fine” and your “I’m fine” — committed to continuing legal education',
-      'Based in Ibadan; willing to appear before this Court in Lagos as often as summoned',
+      'Currently building a company he insists will reach a billion people. By ruling in his favour, the Court acquires veto power over at least one founder’s decisions — more than his investors can say.',
+      'Cannot promise constant availability (see: founder). Can promise that when he is there, he is fully there — and a hopeless romantic about it.',
+      'Will back your goals, dreams, and ambitions like they are his own quarterly targets.',
+      'You are already, annoyingly, a muse. Evidence: this entire document.',
+      'A gentleman on purpose, not by accident. Grounded when everything else isn’t — when you’re all over the place, that’s fine; he’ll hold still.',
+      'Founder profile: high risk, high reward. The Court is advised that early investors historically do best.',
     ],
     nextButton: 'Exhibit C →',
   },
@@ -102,18 +99,34 @@ const config = {
     tab: 'EXHIBIT C',
     title: 'EXHIBIT C — KNOWN FACTS ABOUT THE RESPONDENT',
     facts: [
-      { emoji: '✈️', label: 'Travels', text: 'has better passport stamps than most diplomats' },
-      { emoji: '🍜', label: 'Eats well', text: 'a woman of documented taste' },
-      { emoji: '👗', label: 'Dresses like a closing argument', text: 'no further questions' },
+      {
+        emoji: '📚',
+        label: 'African novels',
+        text: 'keeps better company with Adichie and Achebe than most people manage with friends',
+      },
+      {
+        emoji: '⚡',
+        label: 'The most energetic person in the room',
+        text: 'any room; the room adjusts',
+      },
+      {
+        emoji: '📓',
+        label: 'Journals',
+        text: 'documents her life more faithfully than most firms document billables',
+      },
+      {
+        emoji: '👗',
+        label: 'Dresses like a closing argument',
+        text: 'no further questions',
+      },
       {
         emoji: '🎶',
         label: 'Music',
-        // ⚠️ FILL — her favorite artist or genre
-        text: '[HER FAVORITE ARTIST/GENRE], played at volumes the neighbors have learned to accept',
+        text: 'see: the soundtrack currently playing',
       },
     ],
     outro:
-      'The Plaintiff notes that all of the above are better experienced in company. His, specifically. Which brings us to the motion.',
+      'Brilliant. Independent. Passionate. Funny without trying. The Plaintiff notes that all of the above are better experienced in company. His, specifically. Which brings us to the motion.',
     nextButton: 'File the Motion →',
   },
 
@@ -180,11 +193,9 @@ const config = {
     ],
     question2: 'The Court further orders that this shall occur on:',
     weekendOptions: [
-      // ⚠️ FILL — 2–3 real weekends you can actually travel to Lagos.
-      // Only offer dates you will honor.
-      { id: 'w1', label: '[WEEKEND OPTION 1, e.g. Sat, Aug 29]' },
-      { id: 'w2', label: '[WEEKEND OPTION 2]' },
-      { id: 'w3', label: '[WEEKEND OPTION 3]' },
+      { id: 'w1', label: 'Sat, Aug 29' },
+      { id: 'w2', label: 'Sat, Sep 5' },
+      { id: 'w3', label: 'Sat, Sep 12' },
       {
         id: 'own',
         label: '“I’ll name my own date”',
@@ -243,29 +254,28 @@ const config = {
   },
 
   // --------------------------------------------------------------------------
-  // Photos — all optional. The app works with zero (falls back to
-  // illustrated/animated elements). Put files in /public and reference like
-  // "/first-date.jpg". Set to null to omit.
+  // Photos — files live in /public. Set src to null to omit one; the app
+  // works with zero photos.
   // --------------------------------------------------------------------------
   photos: {
     firstDate: {
-      src: null, // e.g. '/first-date.jpg'
+      src: '/date-photo.jpg',
       caption:
-        'Exhibit A-1: photographic evidence, quality of image inversely proportional to quality of evening',
+        'Exhibit A-1 — taken by the Plaintiff, 12 April. The Court will note the subject is incapable of taking a bad photo. The Plaintiff has not recovered.',
     },
     herPortrait: {
-      src: null, // e.g. '/sola.jpg' — one tasteful image maximum
-      caption: 'Exhibit C-1: the subject. The Court is asked to maintain composure.',
+      src: '/portrait.jpg',
+      caption: 'Exhibit C-1 — the subject. The Court is asked to maintain composure.',
     },
   },
 
   // --------------------------------------------------------------------------
-  // Soundtrack — OFF by default (browsers block autoplay anyway).
-  // Set enabled: true and provide a short hosted clip to show the toggle.
+  // Soundtrack — GWAGWALADA (BNXN ft. Kizz Daniel & Seyi Vibez), ~40s chorus
+  // clip, looped. OFF by default; the 🎵 toggle starts it.
   // --------------------------------------------------------------------------
   soundtrack: {
-    enabled: false,
-    src: '', // e.g. '/song-clip.mp3' — [HER FAVORITE SONG OR ARTIST]
+    enabled: true,
+    src: '/soundtrack.mp3',
     label: '🎵 play soundtrack',
     stopLabel: '🔇 stop soundtrack',
   },

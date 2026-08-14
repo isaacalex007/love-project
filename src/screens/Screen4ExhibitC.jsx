@@ -16,7 +16,7 @@ export default function Screen4ExhibitC({ onNext }) {
     <PageShell>
       <ExhibitTab label={exhibitC.tab} />
 
-      <h2 className="font-display font-bold text-xl text-center mb-1">{exhibitC.title}</h2>
+      <h2 className="font-display font-semibold text-xl text-center mb-1">{exhibitC.title}</h2>
       <div className="letterhead-rule my-3" />
 
       <Polaroid photo={photos.herPortrait} rotate={2} framed />

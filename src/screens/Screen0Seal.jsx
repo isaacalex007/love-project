@@ -23,7 +23,7 @@ export default function Screen0Seal({ onNext }) {
           </div>
 
           <div className="mt-12 space-y-1">
-            <h1 className="font-display font-bold text-lg leading-snug">{caseMeta.court}</h1>
+            <h1 className="font-display font-semibold text-lg leading-snug">{caseMeta.court}</h1>
             <p className="font-body italic text-sm">{caseMeta.holden}</p>
             <p className="stamp-text text-xs text-ink/70 pt-2">{caseMeta.suitNo}</p>
           </div>

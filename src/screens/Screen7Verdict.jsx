@@ -64,7 +64,7 @@ export default function Screen7Verdict({ onGranted }) {
 
   return (
     <PageShell className="justify-center">
-      <h2 className="font-display font-black text-4xl text-center">{verdict.title}</h2>
+      <h2 className="font-display font-semibold text-4xl text-center">{verdict.title}</h2>
       <div className="letterhead-rule my-4" />
       <p className="font-body text-[16px] leading-relaxed text-center mb-8">{verdict.intro}</p>
 

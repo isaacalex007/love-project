@@ -12,7 +12,7 @@ export default function Screen3ExhibitB({ onNext }) {
     <PageShell>
       <ExhibitTab label={exhibitB.tab} />
 
-      <h2 className="font-display font-bold text-xl text-center mb-1">{exhibitB.confessionTitle}</h2>
+      <h2 className="font-display font-semibold text-xl text-center mb-1">{exhibitB.confessionTitle}</h2>
       <div className="letterhead-rule my-3" />
 
       <p className="font-body text-[15px] mb-3">{exhibitB.confessionIntro}</p>

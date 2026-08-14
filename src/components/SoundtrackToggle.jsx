@@ -24,11 +24,11 @@ export default function SoundtrackToggle() {
   }
 
   return (
-    <div className="fixed bottom-3 right-3 z-40">
+    <div className="fixed bottom-3 right-3 z-40 pointer-events-none">
       <audio ref={audioRef} src={src} loop preload="none" />
       <button
         onClick={toggle}
-        className="stamp-text text-[11px] bg-paper/90 border border-gold text-ink/70 rounded-full px-3 py-2 shadow"
+        className="stamp-text pointer-events-auto text-[11px] bg-paper/90 border border-gold text-ink/70 rounded-full px-4 min-h-[44px] shadow"
       >
         {playing ? stopLabel : label}
       </button>

@@ -14,7 +14,7 @@ export default function Screen5Motion({ onNext }) {
         <Stamp rotate={8} delay={0.6}>{motionCopy.stamp}</Stamp>
       </div>
 
-      <h2 className="font-display font-black text-3xl leading-tight text-center mt-6 mb-8">
+      <h2 className="font-display font-semibold text-3xl leading-tight text-center mt-6 mb-8">
         {motionCopy.title}
       </h2>
 
