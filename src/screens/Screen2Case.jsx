@@ -1,17 +1,18 @@
 import config from '../config'
 import PageShell, { Item } from '../components/PageShell'
 import PrimaryButton from '../components/PrimaryButton'
-import Polaroid from '../components/Polaroid'
-import Accent from '../components/Accents'
+import ScratchPhoto from '../components/ScratchPhoto'
+import PoetryHeart from '../components/PoetrySheet'
 
 /**
- * Screen 2 — The Case. The photo settling into place is the hero.
+ * Screen 2 — The Case. The hero: Exhibit A hides under scratch-off foil;
+ * she uncovers the evidence herself.
  */
 export default function Screen2Case({ onNext }) {
   const { him, theCase, photo } = config
   return (
     <PageShell>
-      <Accent icon="envelope" className="top-5 right-5" />
+      <PoetryHeart />
 
       <Item>
         <h2 className="font-sans font-bold text-[24px] leading-snug tracking-[-0.02em] text-center mt-1">
@@ -24,7 +25,7 @@ export default function Screen2Case({ onNext }) {
         <p className="text-[16px] leading-[1.6] text-ink/85 text-center">{theCase.charge}</p>
       </Item>
 
-      <Polaroid photo={photo} />
+      <ScratchPhoto photo={photo} />
 
       <Item className="pt-4">
         <PrimaryButton onClick={onNext}>{theCase.nextButton}</PrimaryButton>

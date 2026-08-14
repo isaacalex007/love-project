@@ -31,13 +31,11 @@ export default function Chip({
         }
       : entrance === 'stamp'
         ? {
-            initial: reduced
-              ? { opacity: 0 }
-              : { opacity: 0, scale: 1.4, rotate, filter: 'blur(6px)' },
-            animate: { opacity: 1, scale: 1, rotate, filter: 'blur(0px)' },
+            initial: reduced ? { opacity: 0 } : { opacity: 0, scale: 1.4, rotate },
+            animate: { opacity: 1, scale: 1, rotate },
             transition: reduced
               ? { duration: 0.25, delay }
-              : { type: 'spring', stiffness: 400, damping: 19, delay, filter: { duration: 0.25, delay } },
+              : { type: 'spring', stiffness: 400, damping: 19, delay },
           }
         : {
             initial: { opacity: 0 },

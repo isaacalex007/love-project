@@ -2,6 +2,7 @@ import { motion, useReducedMotion } from 'framer-motion'
 import config from '../config'
 import PageShell, { Item } from '../components/PageShell'
 import PrimaryButton from '../components/PrimaryButton'
+import PoetryHeart from '../components/PoetrySheet'
 
 function OptionCard({ selected, onSelect, emoji, label, compact = false }) {
   const reduced = useReducedMotion()
@@ -43,6 +44,8 @@ export default function Screen4Ruling({ selections, onSelect, onNext }) {
 
   return (
     <PageShell>
+      <PoetryHeart />
+
       <Item>
         <h2 className="font-sans font-bold text-[24px] tracking-[-0.02em] text-center mt-1">
           {ruling.title}

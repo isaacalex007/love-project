@@ -24,7 +24,7 @@ export default function SoundtrackToggle() {
   }
 
   return (
-    <div className="fixed bottom-3 right-3 z-40 pointer-events-none">
+    <div className="fixed top-3 right-4 z-40 pointer-events-none">
       <audio ref={audioRef} src={src} loop preload="none" />
       <button
         onClick={toggle}

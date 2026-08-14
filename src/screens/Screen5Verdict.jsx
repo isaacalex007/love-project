@@ -5,6 +5,7 @@ import config from '../config'
 import PageShell, { Item } from '../components/PageShell'
 import WaxSeal from '../components/WaxSeal'
 import FloatingHearts from '../components/FloatingHearts'
+import PoetryHeart from '../components/PoetrySheet'
 
 const CONFETTI_COLORS = ['#D96C8A', '#C9A227', '#F3D9DC']
 
@@ -83,6 +84,8 @@ function Verdict({ onGranted }) {
 
   return (
     <PageShell>
+      <PoetryHeart />
+
       <Item>
         <h2 className="font-sans font-bold text-[26px] leading-snug tracking-[-0.02em] text-center">
           {verdict.title}
@@ -170,17 +173,19 @@ function Judgment({ selections }) {
     <>
       <FloatingHearts />
       <PageShell>
+        <PoetryHeart />
+
         <div className="flex justify-center">
           <WaxSeal mode="stamp" size={96} />
         </div>
 
         <motion.p
-          initial={reduced ? { opacity: 0 } : { opacity: 0, scale: 0.92, filter: 'blur(6px)' }}
-          animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+          initial={reduced ? { opacity: 0 } : { opacity: 0, scale: 0.92 }}
+          animate={{ opacity: 1, scale: 1 }}
           transition={
             reduced
               ? { duration: 0.3, delay: 0.4 }
-              : { type: 'spring', stiffness: 260, damping: 22, delay: 1.05, filter: { duration: 0.4, delay: 1.05 } }
+              : { type: 'spring', stiffness: 260, damping: 22, delay: 1.05 }
           }
           className="font-accent italic text-[42px] leading-tight text-center text-rose mt-4 mb-5"
         >

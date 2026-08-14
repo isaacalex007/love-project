@@ -1,28 +1,29 @@
 import { motion, useReducedMotion } from 'framer-motion'
 import config from '../config'
 
-// When the floating soundtrack toggle is present, reserve space below the
-// card so the toggle never overlaps a tap target.
+// The soundtrack toggle floats at the top of the viewport; reserve headroom
+// above the card so they never collide.
 const soundtrackOn = config.soundtrack.enabled && Boolean(config.soundtrack.src)
 
 const SPRING = { type: 'spring', stiffness: 260, damping: 24 }
 
 /**
  * Shared step wrapper: a frosted-glass "document" card gliding in from the
- * folder — incoming from +40px with spring, outgoing slides -40px, fades,
- * and blurs. Children stagger in 70ms apart via the exported <Item>.
+ * folder — incoming from +40px with spring, outgoing slides -40px and
+ * fades. Children stagger in 70ms apart via the exported <Item>.
+ * Text is never blurred, in transit or at rest.
  */
 export default function PageShell({ children, className = '', cardClassName = '' }) {
   const reduced = useReducedMotion()
   return (
     <motion.section
-      initial={reduced ? { opacity: 0 } : { opacity: 0, x: 40, filter: 'blur(4px)' }}
-      animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
-      exit={reduced ? { opacity: 0 } : { opacity: 0, x: -40, filter: 'blur(4px)' }}
-      transition={{ x: SPRING, opacity: { duration: 0.3 }, filter: { duration: 0.3 } }}
-      className={`relative min-h-dvh flex flex-col items-center justify-center px-4 pt-12 ${
-        soundtrackOn ? 'pb-24' : 'pb-10'
-      } ${className}`}
+      initial={reduced ? { opacity: 0 } : { opacity: 0, x: 40 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={reduced ? { opacity: 0 } : { opacity: 0, x: -40 }}
+      transition={{ x: SPRING, opacity: { duration: 0.3 } }}
+      className={`relative min-h-dvh flex flex-col items-center justify-center px-4 ${
+        soundtrackOn ? 'pt-[76px]' : 'pt-12'
+      } pb-10 ${className}`}
     >
       <motion.div
         variants={{

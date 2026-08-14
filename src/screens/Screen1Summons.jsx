@@ -1,29 +1,28 @@
-import { useState } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import config from '../config'
 import WaxSeal from '../components/WaxSeal'
 import Chip from '../components/Chip'
 import Accent from '../components/Accents'
+import PoetryHeart from '../components/PoetrySheet'
 
 /**
- * Screen 1 — The Summons. The record sits softly blurred behind the seal;
- * breaking the seal (the hero) unblurs it and opens the case.
+ * Screen 1 — The Summons. Every line is sharp from first paint; breaking
+ * the seal (the hero) slides the case open.
  */
 export default function Screen1Summons({ onNext }) {
   const { summons } = config
   const reduced = useReducedMotion()
-  const [broken, setBroken] = useState(false)
 
   return (
     <motion.section
       initial={reduced ? { opacity: 0 } : { opacity: 0, y: 24 }}
       animate={{ opacity: 1, y: 0 }}
-      exit={reduced ? { opacity: 0 } : { opacity: 0, x: -40, filter: 'blur(4px)' }}
+      exit={reduced ? { opacity: 0 } : { opacity: 0, x: -40 }}
       transition={{ type: 'spring', stiffness: 260, damping: 24 }}
-      className="relative min-h-dvh flex flex-col items-center justify-center px-4 pt-12 pb-24"
+      className="relative min-h-dvh flex flex-col items-center justify-center px-4 pt-[76px] pb-10"
     >
       <div className="glass-card relative w-full max-w-md px-6 py-10 text-center">
-        <Accent icon="heart" className="top-5 right-5" />
+        <PoetryHeart />
         <Accent icon="scales" className="bottom-5 left-5" slow />
 
         <div className="flex justify-center mb-6">
@@ -32,25 +31,15 @@ export default function Screen1Summons({ onNext }) {
           </Chip>
         </div>
 
-        <motion.div
-          initial={reduced ? {} : { filter: 'blur(8px)' }}
-          animate={reduced ? {} : { filter: broken ? 'blur(0px)' : 'blur(8px)' }}
-          transition={{ duration: 0.5, delay: broken ? 0.1 : 0 }}
-        >
-          <h1 className="font-sans font-bold text-[20px] leading-snug tracking-[-0.02em]">
-            {summons.court}
-          </h1>
-          <p className="text-[15px] text-ink/70 mt-3">{summons.attention}</p>
-        </motion.div>
+        <h1 className="font-sans font-bold text-[20px] leading-snug tracking-[-0.02em]">
+          {summons.court}
+        </h1>
+        <p className="text-[15px] text-ink/70 mt-3">{summons.attention}</p>
 
         <p className="font-sans font-semibold text-[17px] mt-5">{summons.summoned}</p>
 
         <div className="mt-7 flex justify-center">
-          <WaxSeal
-            onCrackStart={() => setBroken(true)}
-            onBroken={onNext}
-            ariaLabel="Break the seal and open the case"
-          />
+          <WaxSeal onBroken={onNext} ariaLabel="Break the seal and open the case" />
         </div>
         <motion.p
           initial={{ opacity: 0 }}

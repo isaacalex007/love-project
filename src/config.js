@@ -40,18 +40,20 @@ const config = {
   photo: {
     src: '/date-photo.jpg',
     caption: 'Exhibit A. You, being unforgettable.',
+    scratchLabel: 'SCRATCH TO REVEAL EVIDENCE',
   },
 
   // --------------------------------------------------------------------------
   // Screen 3 — The Defense
   // --------------------------------------------------------------------------
   defense: {
-    title: 'Why rule in my favour:',
+    title: 'Why rule in my favour — tick to admit into evidence:',
     perks: [
       'Building something for a billion people — you’d get veto power.',
       'Can’t always be around. But when I show up, I show up fully.',
       'You’re already a muse. Evidence: this entire app.',
       'High risk, high reward. Early investors do best.',
+      'We’d grow — in faith, in leadership, in life.',
     ],
     nextButton: 'Noted. Proceed →',
   },
@@ -63,10 +65,10 @@ const config = {
     title: 'Your ruling, My Lady:',
     question1: 'The date shall be —',
     dateOptions: [
-      { id: 'suya', emoji: '🍢', label: 'Suya & small chops', shortText: 'suya & small chops' },
+      { id: 'beach', emoji: '🌊', label: 'Beach day', shortText: 'a beach day' },
       { id: 'dessert', emoji: '🍦', label: 'Dessert + a long walk', shortText: 'dessert + a long walk' },
       { id: 'local', emoji: '🍲', label: 'One properly good spot', shortText: 'a properly good spot' },
-      { id: 'movie', emoji: '🎬', label: 'Movie + street food', shortText: 'movie + street food' },
+      { id: 'movie', emoji: '🎬', label: 'Movie night', shortText: 'movie night' },
     ],
     question2: 'And it shall happen —',
     weekendOptions: [
@@ -100,6 +102,20 @@ const config = {
     // {dateType} and {weekend} are replaced with her selections.
     whatsappTemplate: 'Ruling delivered ⚖️❤️ Motion granted: {dateType} on {weekend}.',
     remarksPrefill: '',
+  },
+
+  // --------------------------------------------------------------------------
+  // Hidden easter egg — the heart at the top-right of each card
+  // --------------------------------------------------------------------------
+  poetry: {
+    title: 'Filed under: poetry',
+    lines: [
+      'They named you Wealth the day you came,',
+      'and the name has held its own —',
+      'I’ve built, I’ve counted, I’ve compared:',
+      'no venture beats you. None I’ve known.',
+    ],
+    attribution: '— the Plaintiff, off the record',
   },
 
   // --------------------------------------------------------------------------
