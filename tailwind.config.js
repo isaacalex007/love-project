@@ -12,7 +12,7 @@ export default {
         blush: '#F3D9DC',
       },
       fontFamily: {
-        display: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+        display: ['"Playfair Display"', 'Georgia', 'serif'],
         body: ['Spectral', 'Georgia', 'serif'],
         stamp: ['"Special Elite"', '"Courier New"', 'monospace'],
       },

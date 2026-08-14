@@ -17,10 +17,10 @@ export default function Screen1Caption({ onNext }) {
       <div className="letterhead-rule my-4" />
 
       <div className="text-center space-y-1">
-        <p className="font-display font-semibold text-2xl">{him.firstName}</p>
+        <p className="font-display font-bold text-2xl">{him.firstName}</p>
         <p className="font-body italic text-sm text-ink/70">{caption.plaintiffNote}</p>
         <p className="font-display text-xl py-1">v.</p>
-        <p className="font-display font-semibold text-lg tracking-wide">{caption.defendantName}</p>
+        <p className="font-display font-bold text-lg tracking-wide">{caption.defendantName}</p>
         <p className="font-body italic text-sm text-ink/70">{caption.defendantNote}</p>
       </div>
 
@@ -34,7 +34,7 @@ export default function Screen1Caption({ onNext }) {
         ))}
       </div>
 
-      <p className="font-display italic font-semibold text-3xl text-center text-wine my-6">
+      <p className="font-display italic font-semibold text-3xl text-center text-wine my-6 [text-wrap:balance]">
         {caption.bigLine}
       </p>
 

@@ -62,7 +62,7 @@ export default function Screen8Judgment({ selections }) {
       </div>
 
       <h2 className="stamp-text text-sm text-wine text-center mt-4">{judgment.title}</h2>
-      <p className="font-display font-semibold text-4xl text-center text-rose mt-2 mb-6">
+      <p className="font-display font-extrabold text-4xl text-center text-rose mt-2 mb-6">
         {judgment.granted}
       </p>
 
@@ -76,7 +76,7 @@ export default function Screen8Judgment({ selections }) {
       </div>
 
       <p className="font-body text-[15px] mt-6">{judgment.offRecordIntro}</p>
-      <p className="font-display italic font-semibold text-2xl text-wine text-center my-4">
+      <p className="font-display italic font-semibold text-2xl text-wine text-center my-4 [text-wrap:balance]">
         {judgment.offRecordLine}
       </p>
       <p className="font-body font-semibold text-center">{judgment.adjourned}</p>

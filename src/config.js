@@ -88,6 +88,7 @@ const config = {
       'You are already, annoyingly, a muse. Evidence: this entire document.',
       'A gentleman on purpose, not by accident. Grounded when everything else isn’t — when you’re all over the place, that’s fine; he’ll hold still.',
       'Founder profile: high risk, high reward. The Court is advised that early investors historically do best.',
+      'Takes the spiritual life seriously, and growing.',
     ],
     nextButton: 'Exhibit C →',
   },

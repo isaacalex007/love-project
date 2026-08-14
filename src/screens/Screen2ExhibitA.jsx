@@ -13,7 +13,7 @@ export default function Screen2ExhibitA({ onNext }) {
     <PageShell>
       <ExhibitTab label={exhibitA.tab} />
 
-      <h2 className="font-display font-semibold text-xl text-center mb-1">{exhibitA.title}</h2>
+      <h2 className="font-display font-bold text-xl text-center mb-1">{exhibitA.title}</h2>
       <div className="letterhead-rule my-3" />
 
       <Polaroid photo={photos.firstDate} rotate={-2.5} />
