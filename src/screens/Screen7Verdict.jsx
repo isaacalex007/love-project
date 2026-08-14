@@ -1,15 +1,15 @@
 import { useLayoutEffect, useRef, useState } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import config from '../config'
-import PageShell from '../components/PageShell'
+import PageShell, { Item } from '../components/PageShell'
 
 const MAX_DODGES = 6
 
 /**
- * Screen 7 — The Verdict. GRANTED grows ~15% per denial attempt; DENIED
- * dodges within safe bounds (spring), cycling its label, and after 6
- * attempts fades out, disabled — "denied on procedural grounds".
- * Reduced motion: the dodge becomes label-cycling in place.
+ * Screen 7 — The Verdict. GRANTED idles with a slow gradient drift and a
+ * breathing glow that intensifies (and grows 15%) per denial attempt;
+ * DENIED spring-dodges within bounds, cycling its labels, then fades out
+ * disabled. Reduced motion: labels cycle in place.
  */
 export default function Screen7Verdict({ onGranted }) {
   const { verdict } = config
@@ -17,15 +17,13 @@ export default function Screen7Verdict({ onGranted }) {
 
   const areaRef = useRef(null)
   const btnRef = useRef(null)
-  const [pos, setPos] = useState(null) // {x, y} within the play area
+  const [pos, setPos] = useState(null)
   const [attempts, setAttempts] = useState(0)
 
   const exhausted = attempts >= MAX_DODGES
   const label = verdict.deniedLabels[Math.min(attempts, verdict.deniedLabels.length - 1)]
   const grantScale = Math.min(1 + attempts * 0.15, 1.9)
 
-  // Start the denied button centered, and re-clamp it whenever the label
-  // changes size so a longer label never pokes past the play area.
   useLayoutEffect(() => {
     const area = areaRef.current
     const btn = btnRef.current
@@ -47,12 +45,11 @@ export default function Screen7Verdict({ onGranted }) {
     if (exhausted) return
     e.preventDefault()
     setAttempts((a) => a + 1)
-    if (reduced) return // label cycles in place instead of moving
+    if (reduced) return
     const area = areaRef.current
     const btn = btnRef.current
     if (!area || !btn) return
-    // Leave headroom for the widest upcoming label — the button's width
-    // changes as labels cycle.
+    // leave headroom for the widest upcoming label
     const pad = 8
     const maxX = Math.max(pad, area.clientWidth - btn.offsetWidth - 40 - pad)
     const maxY = Math.max(pad, area.clientHeight - btn.offsetHeight - pad)
@@ -63,21 +60,29 @@ export default function Screen7Verdict({ onGranted }) {
   }
 
   return (
-    <PageShell className="justify-center">
-      <h2 className="font-display font-extrabold text-4xl text-center">{verdict.title}</h2>
-      <div className="letterhead-rule my-4" />
-      <p className="font-body text-[16px] leading-relaxed text-center mb-8">{verdict.intro}</p>
+    <PageShell>
+      <Item>
+        <h2 className="font-sans font-bold text-[34px] tracking-[-0.02em] text-center">
+          {verdict.title}
+        </h2>
+        <hr className="divider my-4" />
+      </Item>
+      <Item>
+        <p className="text-[16px] leading-[1.6] text-ink/85 text-center mb-8">{verdict.intro}</p>
+      </Item>
 
-      <motion.button
-        animate={{ scale: grantScale }}
-        transition={{ type: 'spring', stiffness: 300, damping: 18 }}
-        whileTap={{ scale: grantScale * 0.95 }}
-        onClick={onGranted}
-        className="stamp-text mx-auto block min-h-[52px] px-6 py-3.5 rounded bg-rose text-paper text-sm shadow-lg origin-center"
-        style={{ maxWidth: '80%' }}
-      >
-        {verdict.grantLabel}
-      </motion.button>
+      <Item>
+        <motion.button
+          animate={{ scale: grantScale }}
+          transition={{ type: 'spring', stiffness: 300, damping: 18 }}
+          whileTap={{ scale: grantScale * 0.95 }}
+          onClick={onGranted}
+          className="btn-granted label mx-auto block min-h-[52px] px-7 py-3.5 text-[13px] origin-center"
+          style={{ maxWidth: '80%', '--glow': attempts }}
+        >
+          {verdict.grantLabel}
+        </motion.button>
+      </Item>
 
       {/* play area for the dodging button */}
       <div ref={areaRef} className="relative h-56 mt-6 w-full">
@@ -96,11 +101,9 @@ export default function Screen7Verdict({ onGranted }) {
             opacity: pos ? (exhausted ? 0.2 : 1) : 0,
           }}
           transition={
-            reduced
-              ? { duration: 0.01 }
-              : { type: 'spring', stiffness: 420, damping: 22 }
+            reduced ? { duration: 0.01 } : { type: 'spring', stiffness: 420, damping: 22 }
           }
-          className="stamp-text absolute left-0 top-0 min-h-[44px] px-4 py-2.5 rounded border-2 border-ink/40 text-ink/70 text-xs bg-paper whitespace-nowrap"
+          className="label glass-pill absolute left-0 top-0 min-h-[44px] px-4 py-2.5 text-[11px] text-ink/70 border !border-rose/30 whitespace-nowrap"
         >
           ✗ {label}
         </motion.button>
@@ -110,7 +113,7 @@ export default function Screen7Verdict({ onGranted }) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3 }}
-            className="stamp-text absolute inset-x-0 bottom-0 text-center text-[11px] text-ink/50"
+            className="label absolute inset-x-0 bottom-0 text-center text-[10px] text-ink/45"
           >
             {verdict.deniedDisabledCaption}
           </motion.p>

@@ -1,29 +1,43 @@
-import { motion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 import config from '../config'
-import PageShell from '../components/PageShell'
+import PageShell, { Item } from '../components/PageShell'
 import PrimaryButton from '../components/PrimaryButton'
 
-function OptionCard({ selected, onSelect, children }) {
-  return (
+function OptionCard({ selected, onSelect, emoji, children }) {
+  const reduced = useReducedMotion()
+  const card = (
     <motion.button
-      whileTap={{ scale: 0.97 }}
+      whileTap={reduced ? undefined : { y: -6, boxShadow: '0 14px 30px -8px rgba(46,31,39,0.18)' }}
       onClick={onSelect}
       aria-pressed={selected}
-      className={`w-full text-left min-h-[48px] rounded-lg border-2 px-4 py-3 transition-colors
-        ${
-          selected
-            ? 'border-rose bg-blush/80 shadow-sm'
-            : 'border-ink/15 bg-paper active:bg-blush/40'
-        }`}
+      className={`w-full text-left min-h-[48px] px-4 py-3 transition-colors rounded-[18px]
+        ${selected ? 'bg-white/80' : 'glass-pill !rounded-[18px] active:bg-white/70'}`}
     >
-      {children}
+      <span className="text-[15px] leading-snug block text-ink/85">
+        {emoji && (
+          <motion.span
+            className="mr-2 inline-block"
+            aria-hidden="true"
+            animate={selected && !reduced ? { scale: [1, 1.3, 1], rotate: [0, -10, 0] } : {}}
+            transition={{ duration: 0.45 }}
+          >
+            {emoji}
+          </motion.span>
+        )}
+        {children}
+      </span>
     </motion.button>
   )
+
+  // selected cards get the animated rose→gold gradient border
+  return selected ? <div className="grad-border">{card}</div> : <div className="p-[2px]">{card}</div>
 }
 
 /**
- * Screen 6 — The Court's Directions. Two questions answered by tapping cards.
- * Options are config-driven arrays of arbitrary length; the UI adapts.
+ * Screen 6 — The Court's Directions. Cards lift on press; the chosen one
+ * earns an animated gradient border and one happy emoji bounce. The
+ * continue button stays disabled-glass until both orders exist, then
+ * blooms into the gradient pill.
  */
 export default function Screen6Directions({ selections, onSelect, onNext }) {
   const { directions } = config
@@ -31,51 +45,55 @@ export default function Screen6Directions({ selections, onSelect, onNext }) {
 
   return (
     <PageShell>
-      <h2 className="stamp-text text-sm text-wine text-center mb-1">The Court’s Directions</h2>
-      <div className="letterhead-rule my-3" />
+      <Item>
+        <h2 className="label text-[11px] text-wine text-center mt-1">The Court’s Directions</h2>
+        <hr className="divider my-4" />
+      </Item>
 
-      <p className="font-body italic text-[15px] mb-3">{directions.question1}</p>
-      <div className="space-y-2.5">
+      <Item>
+        <p className="text-[15px] italic text-ink/75 mb-3">{directions.question1}</p>
+      </Item>
+      <div className="space-y-2">
         {directions.dateOptions.map((opt) => (
-          <OptionCard
-            key={opt.id}
-            selected={selections.dateType?.id === opt.id}
-            onSelect={() => onSelect('dateType', opt)}
-          >
-            <span className="font-body text-[15px] leading-snug block">
-              <span className="mr-1.5" aria-hidden="true">
-                {opt.emoji}
-              </span>
-              <span className="font-semibold">{opt.label}</span>
+          <Item key={opt.id}>
+            <OptionCard
+              selected={selections.dateType?.id === opt.id}
+              onSelect={() => onSelect('dateType', opt)}
+              emoji={opt.emoji}
+            >
+              <span className="font-semibold text-ink">{opt.label}</span>
               {opt.description && <span className="text-ink/70"> — {opt.description}</span>}
-            </span>
-          </OptionCard>
+            </OptionCard>
+          </Item>
         ))}
       </div>
 
-      <p className="font-body italic text-[15px] mt-6 mb-3">{directions.question2}</p>
-      <div className="space-y-2.5">
+      <Item>
+        <p className="text-[15px] italic text-ink/75 mt-6 mb-3">{directions.question2}</p>
+      </Item>
+      <div className="space-y-2">
         {directions.weekendOptions.map((opt) => (
-          <OptionCard
-            key={opt.id}
-            selected={selections.weekend?.id === opt.id}
-            onSelect={() => onSelect('weekend', opt)}
-          >
-            <span className="font-body text-[15px] leading-snug block">
-              <span className="font-semibold">{opt.label}</span>
-              {opt.sub && <span className="italic text-ink/60"> {opt.sub}</span>}
-            </span>
-          </OptionCard>
+          <Item key={opt.id}>
+            <OptionCard
+              selected={selections.weekend?.id === opt.id}
+              onSelect={() => onSelect('weekend', opt)}
+            >
+              <span className="font-semibold text-ink">{opt.label}</span>
+              {opt.sub && <span className="italic text-ink/55"> {opt.sub}</span>}
+            </OptionCard>
+          </Item>
         ))}
       </div>
 
-      <p className="font-body italic text-xs text-ink/60 mt-4">{directions.smallPrint}</p>
+      <Item>
+        <p className="text-xs italic text-ink/55 mt-4">{directions.smallPrint}</p>
+      </Item>
 
-      <div className="mt-auto pt-6">
+      <Item className="pt-6">
         <PrimaryButton onClick={onNext} disabled={!ready}>
           {directions.nextButton}
         </PrimaryButton>
-      </div>
+      </Item>
     </PageShell>
   )
 }

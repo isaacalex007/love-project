@@ -1,56 +1,54 @@
-import { motion, useReducedMotion } from 'framer-motion'
 import config from '../config'
-import PageShell from '../components/PageShell'
+import PageShell, { Item } from '../components/PageShell'
 import PrimaryButton from '../components/PrimaryButton'
 import ExhibitTab from '../components/ExhibitTab'
 import Polaroid from '../components/Polaroid'
+import Accent from '../components/Accents'
 
 /**
- * Screen 4 — Exhibit C: The Subject. Her section — floating fact cards.
+ * Screen 4 — Exhibit C: The Subject. Fact cards stagger-float in; the
+ * portrait sits in a slow gold shimmer frame.
  */
 export default function Screen4ExhibitC({ onNext }) {
   const { exhibitC, photos } = config
-  const reduced = useReducedMotion()
 
   return (
     <PageShell>
       <ExhibitTab label={exhibitC.tab} />
+      <Accent icon="plane" className="top-5 right-5" />
+      <Accent icon="book" className="bottom-24 left-4" slow />
 
-      <h2 className="font-display font-bold text-xl text-center mb-1">{exhibitC.title}</h2>
-      <div className="letterhead-rule my-3" />
+      <Item>
+        <h2 className="font-sans font-bold text-[19px] tracking-[-0.02em] text-center mt-2 mb-1">
+          {exhibitC.title}
+        </h2>
+        <hr className="divider my-4" />
+      </Item>
 
-      <Polaroid photo={photos.herPortrait} rotate={2} framed />
+      <Polaroid photo={photos.herPortrait} framed />
 
       <div className="space-y-3 mt-2">
         {exhibitC.facts.map((fact, i) => (
-          <motion.div
-            key={i}
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.15 + i * 0.12 }}
-            className="bg-blush/70 border border-rose/25 rounded-lg px-4 py-3"
-          >
-            <motion.div
-              animate={reduced ? {} : { y: [0, -3, 0] }}
-              transition={{ repeat: Infinity, duration: 3 + i * 0.4, ease: 'easeInOut', delay: i * 0.5 }}
-              className="flex items-start gap-3"
-            >
+          <Item key={i}>
+            <div className="glass-pill !rounded-2xl flex items-start gap-3 px-4 py-3">
               <span className="text-xl leading-none pt-0.5" aria-hidden="true">
                 {fact.emoji}
               </span>
-              <p className="font-body text-[15px] leading-snug">
-                <span className="font-semibold">{fact.label}</span> — {fact.text}
+              <p className="text-[15px] leading-snug text-ink/85">
+                <span className="font-semibold text-ink">{fact.label}</span> — {fact.text}
               </p>
-            </motion.div>
-          </motion.div>
+            </div>
+          </Item>
         ))}
       </div>
 
-      <p className="font-body text-[15px] leading-relaxed mt-5">{exhibitC.outro}</p>
+      <Item>
+        <p className="text-[15px] leading-relaxed text-ink/85 mt-5">{exhibitC.outro}</p>
+      </Item>
 
-      <div className="mt-auto pt-8">
+      <Item className="pt-7">
         <PrimaryButton onClick={onNext}>{exhibitC.nextButton}</PrimaryButton>
-      </div>
+      </Item>
     </PageShell>
   )
 }

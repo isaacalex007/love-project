@@ -1,48 +1,62 @@
 import config from '../config'
-import PageShell from '../components/PageShell'
+import PageShell, { Item } from '../components/PageShell'
 import PrimaryButton from '../components/PrimaryButton'
 import ScalesFlourish from '../components/ScalesFlourish'
+import Accent from '../components/Accents'
 
 /**
- * Screen 1 — The Case Caption. Letterhead style.
+ * Screen 1 — The Case Caption. "Mo ní Ṣọlá." in the accent serif is the
+ * emotional beat; everything else is quiet UI.
  */
 export default function Screen1Caption({ onNext }) {
   const { caption, him } = config
   return (
     <PageShell>
-      <div className="flex justify-center">
+      <Accent icon="heart" className="bottom-6 right-5" />
+
+      <Item className="flex justify-center">
         <ScalesFlourish />
-      </div>
+      </Item>
 
-      <div className="letterhead-rule my-4" />
+      <Item>
+        <hr className="divider my-5" />
+      </Item>
 
-      <div className="text-center space-y-1">
-        <p className="font-display font-bold text-2xl">{him.firstName}</p>
-        <p className="font-body italic text-sm text-ink/70">{caption.plaintiffNote}</p>
-        <p className="font-display text-xl py-1">v.</p>
-        <p className="font-display font-bold text-lg tracking-wide">{caption.defendantName}</p>
-        <p className="font-body italic text-sm text-ink/70">{caption.defendantNote}</p>
-      </div>
+      <Item className="text-center space-y-1">
+        <p className="font-sans font-bold text-2xl tracking-[-0.02em]">{him.firstName}</p>
+        <p className="text-sm text-ink/60 italic">{caption.plaintiffNote}</p>
+        <p className="font-sans font-medium text-lg text-ink/50 py-1">v.</p>
+        <p className="label text-[13px] text-wine">{caption.defendantName}</p>
+        <p className="text-sm text-ink/60 italic">{caption.defendantNote}</p>
+      </Item>
 
-      <div className="letterhead-rule my-4" />
+      <Item>
+        <hr className="divider my-5" />
+      </Item>
 
-      <h2 className="stamp-text text-center text-sm text-wine mb-4">{caption.preliminaryTitle}</h2>
+      <Item>
+        <h2 className="label text-[11px] text-rose text-center mb-4">{caption.preliminaryTitle}</h2>
+      </Item>
 
-      <div className="font-body text-[15px] leading-relaxed space-y-3">
+      <Item className="text-[15px] leading-relaxed text-ink/85 space-y-3">
         {caption.preliminaryParagraphs.map((p, i) => (
           <p key={i}>{p}</p>
         ))}
-      </div>
+      </Item>
 
-      <p className="font-display italic font-semibold text-3xl text-center text-wine my-6 [text-wrap:balance]">
-        {caption.bigLine}
-      </p>
+      <Item>
+        <p className="font-accent italic text-[38px] leading-tight text-center text-wine my-6 [text-wrap:balance]">
+          {caption.bigLine}
+        </p>
+      </Item>
 
-      <p className="font-body text-[15px] leading-relaxed">{caption.afterBigLine}</p>
+      <Item>
+        <p className="text-[15px] leading-relaxed text-ink/85">{caption.afterBigLine}</p>
+      </Item>
 
-      <div className="mt-auto pt-8">
+      <Item className="pt-7">
         <PrimaryButton onClick={onNext}>{caption.nextButton}</PrimaryButton>
-      </div>
+      </Item>
     </PageShell>
   )
 }

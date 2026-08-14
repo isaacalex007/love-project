@@ -18,7 +18,7 @@ const config = {
     surname: 'Olomola',
   },
   him: {
-    firstName: '[YOUR FIRST NAME]', // ⚠️ FILL — still missing!
+    firstName: 'Isaac X',
     whatsappNumber: '2348165868081',
   },
 

@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import { AnimatePresence } from 'framer-motion'
+import Background from './components/Background'
+import ProgressRule from './components/ProgressRule'
 import SoundtrackToggle from './components/SoundtrackToggle'
 import Screen0Seal from './screens/Screen0Seal'
 import Screen1Caption from './screens/Screen1Caption'
@@ -37,21 +39,13 @@ export default function App() {
   ]
 
   return (
-    <div className="grain min-h-dvh">
-      {/* thin gold progress rule */}
-      <div className="fixed top-0 inset-x-0 h-1 bg-gold/20 z-40">
-        <div
-          className="h-full bg-gold transition-all duration-700 ease-out"
-          style={{ width: `${(step / TOTAL_STEPS) * 100}%` }}
-        />
-      </div>
-
-      {/* centered document column on the textured backdrop */}
-      <main className="document relative mx-auto w-full max-w-md min-h-dvh overflow-hidden">
+    <>
+      <Background />
+      <ProgressRule step={step} total={TOTAL_STEPS} />
+      <main className="relative overflow-x-clip">
         <AnimatePresence mode="wait">{screens[step]}</AnimatePresence>
       </main>
-
       <SoundtrackToggle />
-    </div>
+    </>
   )
 }

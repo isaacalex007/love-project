@@ -1,50 +1,59 @@
 import config from '../config'
-import PageShell from '../components/PageShell'
+import PageShell, { Item } from '../components/PageShell'
 import PrimaryButton from '../components/PrimaryButton'
 import ExhibitTab from '../components/ExhibitTab'
+import CheckRow from '../components/CheckRow'
+import Accent from '../components/Accents'
 
 /**
- * Screen 3 — Exhibit B: the confession, then the qualifications checklist.
+ * Screen 3 — Exhibit B. The hero: qualifications tick in one at a time,
+ * each checkbox drawing its stroke with a small pop. The screen she'll
+ * rewatch.
  */
 export default function Screen3ExhibitB({ onNext }) {
   const { exhibitB } = config
   return (
     <PageShell>
       <ExhibitTab label={exhibitB.tab} />
+      <Accent icon="heart" className="top-5 right-5" slow />
 
-      <h2 className="font-display font-bold text-xl text-center mb-1">{exhibitB.confessionTitle}</h2>
-      <div className="letterhead-rule my-3" />
+      <Item>
+        <h2 className="font-sans font-bold text-[19px] tracking-[-0.02em] text-center mt-2 mb-1">
+          {exhibitB.confessionTitle}
+        </h2>
+        <hr className="divider my-4" />
+      </Item>
 
-      <p className="font-body text-[15px] mb-3">{exhibitB.confessionIntro}</p>
-      <div className="font-body text-[15px] leading-relaxed space-y-3">
+      <Item>
+        <p className="text-[15px] text-ink/85 mb-3">{exhibitB.confessionIntro}</p>
+      </Item>
+      <Item className="text-[15px] leading-relaxed text-ink/85 space-y-3">
         {exhibitB.confessionParagraphs.map((p, i) => (
-          <p key={i} className={i === exhibitB.confessionParagraphs.length - 1 ? 'font-medium' : ''}>
+          <p key={i} className={i === exhibitB.confessionParagraphs.length - 1 ? 'font-medium text-ink' : ''}>
             {p}
           </p>
         ))}
-      </div>
+      </Item>
 
-      <div className="letterhead-rule my-5" />
+      <Item>
+        <hr className="divider my-5" />
+        <h3 className="label text-[11px] text-wine text-center">{exhibitB.qualificationsTitle}</h3>
+        <p className="text-sm italic text-ink/55 text-center mt-1 mb-5">
+          {exhibitB.qualificationsNote}
+        </p>
+      </Item>
 
-      <h3 className="stamp-text text-sm text-wine text-center">{exhibitB.qualificationsTitle}</h3>
-      <p className="font-body italic text-sm text-ink/60 text-center mb-4">
-        {exhibitB.qualificationsNote}
-      </p>
-
-      <ul className="font-body text-[15px] leading-relaxed space-y-2.5">
+      <ul className="space-y-3">
         {exhibitB.perks.map((perk, i) => (
-          <li key={i} className="flex gap-2.5">
-            <span className="text-wine shrink-0" aria-hidden="true">
-              ☑︎
-            </span>
-            <span>{perk}</span>
-          </li>
+          <CheckRow key={i} index={i} baseDelay={0.5}>
+            {perk}
+          </CheckRow>
         ))}
       </ul>
 
-      <div className="mt-auto pt-8">
+      <Item className="pt-7">
         <PrimaryButton onClick={onNext}>{exhibitB.nextButton}</PrimaryButton>
-      </div>
+      </Item>
     </PageShell>
   )
 }

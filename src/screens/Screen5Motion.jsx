@@ -1,40 +1,54 @@
 import config from '../config'
-import PageShell from '../components/PageShell'
+import PageShell, { Item } from '../components/PageShell'
 import PrimaryButton from '../components/PrimaryButton'
-import Stamp from '../components/Stamp'
+import Chip from '../components/Chip'
+import Accent from '../components/Accents'
 
 /**
- * Screen 5 — The Motion. The centerpiece: big display type, FILED stamp.
+ * Screen 5 — The Motion. Heading fades up, then the FILED chip scales in
+ * from 1.4 with blur-to-sharp and lands rotated -3°: the hero beat.
  */
 export default function Screen5Motion({ onNext }) {
   const { motion: motionCopy } = config
   return (
     <PageShell>
+      <Accent icon="scales" className="bottom-24 left-4" slow />
+
       <div className="flex justify-end">
-        <Stamp rotate={8} delay={0.6}>{motionCopy.stamp}</Stamp>
+        <Chip tone="wine" entrance="stamp" rotate={-3} delay={0.7}>
+          {motionCopy.stamp}
+        </Chip>
       </div>
 
-      <h2 className="font-display font-extrabold text-3xl leading-tight text-center mt-6 mb-8">
-        {motionCopy.title}
-      </h2>
+      <Item>
+        <h2 className="font-sans font-bold text-[30px] leading-[1.12] tracking-[-0.02em] text-center mt-5 mb-7">
+          {motionCopy.title}
+        </h2>
+      </Item>
 
-      <div className="font-body text-[16px] leading-relaxed space-y-5">
+      <Item className="text-[16px] leading-[1.6] text-ink/85 space-y-5">
         {motionCopy.paragraphs.map((p, i) => (
           <p key={i}>{p}</p>
         ))}
+      </Item>
 
-        <p className="font-medium bg-blush/60 border-l-4 border-gold pl-4 py-3 pr-3 rounded-r">
-          {motionCopy.order}
-        </p>
+      <Item>
+        <div className="glass-pill !rounded-2xl border-l-4 !border-l-gold px-4 py-4 my-5">
+          <p className="text-[16px] leading-[1.6] font-medium text-ink">{motionCopy.order}</p>
+        </div>
+      </Item>
 
-        <p>{motionCopy.closing}</p>
-      </div>
+      <Item>
+        <p className="text-[16px] leading-[1.6] text-ink/85">{motionCopy.closing}</p>
+      </Item>
 
-      <p className="font-body italic text-center text-ink/70 mt-8">{motionCopy.directionNote}</p>
+      <Item>
+        <p className="text-center italic text-ink/60 mt-7">{motionCopy.directionNote}</p>
+      </Item>
 
-      <div className="mt-auto pt-8">
+      <Item className="pt-7">
         <PrimaryButton onClick={onNext}>{motionCopy.nextButton}</PrimaryButton>
-      </div>
+      </Item>
     </PageShell>
   )
 }

@@ -1,14 +1,14 @@
+import Chip from './Chip'
+
 /**
- * Gold exhibit tab clinging to the left edge of the document.
+ * Floating exhibit chip at the top-left corner of the document card.
  */
 export default function ExhibitTab({ label }) {
   return (
-    <div
-      className="absolute left-0 top-8 -translate-x-1 bg-gold text-paper stamp-text text-[10px] py-2 px-1.5 rounded-r-md shadow-md"
-      style={{ writingMode: 'vertical-rl', textOrientation: 'mixed' }}
-      aria-hidden="true"
-    >
-      {label}
+    <div className="absolute -top-3.5 left-5">
+      <Chip tone="gold" entrance="drop" delay={0.45} rotate={-2}>
+        {label}
+      </Chip>
     </div>
   )
 }

@@ -2,8 +2,8 @@ import { useRef, useState } from 'react'
 import config from '../config'
 
 /**
- * Optional "🎵 play soundtrack" toggle. Renders only when enabled in config
- * and a clip is provided. Sound is OFF by default.
+ * Floating soundtrack toggle. While playing, three tiny equalizer bars
+ * animate beside the note. Sound is OFF by default.
  */
 export default function SoundtrackToggle() {
   const { enabled, src, label, stopLabel } = config.soundtrack
@@ -28,8 +28,15 @@ export default function SoundtrackToggle() {
       <audio ref={audioRef} src={src} loop preload="none" />
       <button
         onClick={toggle}
-        className="stamp-text pointer-events-auto text-[11px] bg-paper/90 border border-gold text-ink/70 rounded-full px-4 min-h-[44px] shadow"
+        className="label pointer-events-auto glass-pill flex items-center gap-2 text-[10px] text-ink/70 px-4 min-h-[44px] shadow-sm"
       >
+        {playing && (
+          <span className="flex items-end gap-[2px] h-[12px]" aria-hidden="true">
+            <span className="eq-bar" style={{ animationDelay: '0s' }} />
+            <span className="eq-bar" style={{ animationDelay: '0.25s' }} />
+            <span className="eq-bar" style={{ animationDelay: '0.5s' }} />
+          </span>
+        )}
         {playing ? stopLabel : label}
       </button>
     </div>

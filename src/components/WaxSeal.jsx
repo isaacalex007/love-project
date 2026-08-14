@@ -2,99 +2,117 @@ import { useState } from 'react'
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 
 /**
- * The signature set piece: a rose wax seal bearing a heart-over-scales emblem.
+ * The signature element: a glossy modern emblem — rose gradient disc, inner
+ * ring, white heart-over-scales mark, one specular highlight. Reads like an
+ * app icon, not clip-art wax.
  *
- * mode="breakable" — she taps it, it cracks in two with a particle burst,
- *   then calls onBroken().
- * mode="stamp" — it slams down fully formed (used to seal the verdict).
+ * mode="breakable" — idle 3s pulse; on tap: quick 1.06 squeeze, then it
+ *   splits into halves that rotate/fly apart with 14 particles on a
+ *   physics arc (600ms), then onBroken().
+ * mode="stamp" — spring stamp-down with an expanding particle ring.
  */
 
 function SealFace({ size }) {
   return (
     <svg width={size} height={size} viewBox="0 0 120 120" aria-hidden="true">
       <defs>
-        <radialGradient id="wax" cx="42%" cy="38%" r="70%">
-          <stop offset="0%" stopColor="#E48BA3" />
+        <linearGradient id="disc" x1="20%" y1="8%" x2="80%" y2="95%">
+          <stop offset="0%" stopColor="#E896AC" />
           <stop offset="55%" stopColor="#D96C8A" />
-          <stop offset="100%" stopColor="#B94F6E" />
+          <stop offset="100%" stopColor="#B14F6C" />
+        </linearGradient>
+        <radialGradient id="spec" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.65" />
+          <stop offset="100%" stopColor="#FFFFFF" stopOpacity="0" />
         </radialGradient>
       </defs>
-      {/* irregular wax blob: main disc + bumps around the rim */}
-      <g fill="url(#wax)">
-        <circle cx="60" cy="60" r="46" />
-        <circle cx="60" cy="12" r="7" />
-        <circle cx="97" cy="34" r="6" />
-        <circle cx="106" cy="66" r="5" />
-        <circle cx="92" cy="96" r="7" />
-        <circle cx="58" cy="108" r="6" />
-        <circle cx="26" cy="98" r="6" />
-        <circle cx="13" cy="62" r="6" />
-        <circle cx="22" cy="28" r="7" />
-      </g>
-      {/* embossed rim */}
-      <circle cx="60" cy="60" r="38" fill="none" stroke="#B94F6E" strokeWidth="2" opacity="0.8" />
-      <circle cx="60" cy="60" r="35" fill="none" stroke="#F3D9DC" strokeWidth="1" opacity="0.5" />
-      {/* emblem: heart over scales, embossed */}
-      <g stroke="#8E3A54" strokeWidth="2.4" strokeLinecap="round" fill="none">
-        {/* heart */}
+
+      <circle cx="60" cy="60" r="52" fill="url(#disc)" />
+      {/* inner ring */}
+      <circle cx="60" cy="60" r="41" fill="none" stroke="#FFFFFF" strokeWidth="1.5" opacity="0.5" />
+
+      {/* heart-over-scales mark, in white */}
+      <g stroke="#FFFFFF" strokeWidth="2.6" strokeLinecap="round" fill="none">
         <path
-          d="M60 46c-2.6-4.4-8.4-5.1-11-1.6-2.2 2.9-1.3 7 2.2 9.9L60 61l8.8-6.7c3.5-2.9 4.4-7 2.2-9.9-2.6-3.5-8.4-2.8-11 1.6Z"
-          fill="#8E3A54"
+          d="M60 45c-2.8-4.7-9-5.4-11.7-1.7-2.3 3.1-1.4 7.4 2.3 10.5L60 61l9.4-7.2c3.7-3.1 4.6-7.4 2.3-10.5-2.7-3.7-8.9-3-11.7 1.7Z"
+          fill="#FFFFFF"
           stroke="none"
         />
-        {/* post + crossbar */}
-        <line x1="60" y1="61" x2="60" y2="84" />
-        <line x1="42" y1="66" x2="78" y2="66" />
-        {/* chains */}
-        <line x1="42" y1="66" x2="38" y2="74" strokeWidth="1.6" />
-        <line x1="42" y1="66" x2="46" y2="74" strokeWidth="1.6" />
-        <line x1="78" y1="66" x2="74" y2="74" strokeWidth="1.6" />
-        <line x1="78" y1="66" x2="82" y2="74" strokeWidth="1.6" />
-        {/* pans */}
-        <path d="M36 74h12a6 6 0 0 1-12 0Z" fill="#8E3A54" stroke="none" />
-        <path d="M72 74h12a6 6 0 0 1-12 0Z" fill="#8E3A54" stroke="none" />
-        {/* base */}
-        <line x1="53" y1="86" x2="67" y2="86" strokeWidth="2.8" />
+        <line x1="60" y1="61" x2="60" y2="85" />
+        <line x1="41" y1="67" x2="79" y2="67" />
+        <line x1="41" y1="67" x2="37" y2="75" strokeWidth="1.7" />
+        <line x1="41" y1="67" x2="45" y2="75" strokeWidth="1.7" />
+        <line x1="79" y1="67" x2="75" y2="75" strokeWidth="1.7" />
+        <line x1="79" y1="67" x2="83" y2="75" strokeWidth="1.7" />
+        <path d="M35 75h12a6 6 0 0 1-12 0Z" fill="#FFFFFF" stroke="none" />
+        <path d="M73 75h12a6 6 0 0 1-12 0Z" fill="#FFFFFF" stroke="none" />
+        <line x1="53" y1="87" x2="67" y2="87" strokeWidth="3" />
       </g>
-      {/* highlight glint */}
-      <ellipse cx="46" cy="38" rx="12" ry="7" fill="#FFFFFF" opacity="0.18" transform="rotate(-25 46 38)" />
+
+      {/* one specular highlight */}
+      <ellipse cx="43" cy="34" rx="18" ry="10" fill="url(#spec)" transform="rotate(-28 43 34)" />
     </svg>
   )
 }
 
-const PARTICLES = [
-  { x: -46, y: -34, s: 7 },
-  { x: 42, y: -46, s: 5 },
-  { x: 58, y: -8, s: 6 },
-  { x: 50, y: 38, s: 5 },
-  { x: -8, y: 54, s: 7 },
-  { x: -54, y: 30, s: 5 },
-  { x: -60, y: -6, s: 6 },
-  { x: 10, y: -58, s: 5 },
-]
+const shadow = { filter: 'drop-shadow(0 12px 26px rgba(217,108,138,0.45))' }
 
-export default function WaxSeal({ size = 132, mode = 'breakable', onBroken, ariaLabel }) {
+const PARTICLES = Array.from({ length: 14 }, (_, i) => {
+  const angle = (i / 14) * Math.PI * 2
+  const power = 42 + (i % 3) * 16
+  return {
+    x: Math.cos(angle) * power,
+    up: -18 - (i % 4) * 10,
+    down: 44 + (i % 5) * 12,
+    s: 4 + (i % 3) * 2,
+    gold: i % 3 === 0,
+  }
+})
+
+export default function WaxSeal({ size = 128, mode = 'breakable', onBroken, onCrackStart, ariaLabel }) {
   const [broken, setBroken] = useState(false)
   const reduced = useReducedMotion()
 
   if (mode === 'stamp') {
     return (
-      <motion.div
-        initial={reduced ? { opacity: 0 } : { opacity: 0, scale: 2.2 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={reduced ? { duration: 0.2 } : { type: 'spring', stiffness: 380, damping: 20, delay: 0.5 }}
-        aria-hidden="true"
-      >
-        <SealFace size={size} />
-      </motion.div>
+      <div className="relative" style={{ width: size, height: size }}>
+        <motion.div
+          initial={reduced ? { opacity: 0 } : { opacity: 0, scale: 2 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={reduced ? { duration: 0.2 } : { type: 'spring', stiffness: 380, damping: 20, delay: 0.5 }}
+          style={shadow}
+          aria-hidden="true"
+        >
+          <SealFace size={size} />
+        </motion.div>
+        {/* one particle ring on landing */}
+        {!reduced &&
+          Array.from({ length: 12 }).map((_, i) => {
+            const a = (i / 12) * Math.PI * 2
+            return (
+              <motion.span
+                key={i}
+                className={`absolute rounded-full ${i % 3 === 0 ? 'bg-gold' : 'bg-rose'}`}
+                style={{ width: 5, height: 5, left: '50%', top: '50%' }}
+                initial={{ x: 0, y: 0, opacity: 0 }}
+                animate={{
+                  x: Math.cos(a) * size * 0.62,
+                  y: Math.sin(a) * size * 0.62,
+                  opacity: [0, 1, 0],
+                }}
+                transition={{ duration: 0.55, delay: 0.72, ease: 'easeOut' }}
+              />
+            )
+          })}
+      </div>
     )
   }
 
   const crack = () => {
     if (broken) return
     setBroken(true)
-    // Let the crack play, then advance.
-    setTimeout(onBroken, reduced ? 250 : 900)
+    onCrackStart?.()
+    setTimeout(onBroken, reduced ? 250 : 850)
   }
 
   const half = (side) => ({
@@ -111,8 +129,10 @@ export default function WaxSeal({ size = 132, mode = 'breakable', onBroken, aria
     >
       {!broken && (
         <motion.div
-          animate={reduced ? {} : { scale: [1, 1.045, 1] }}
-          transition={{ repeat: Infinity, duration: 2.4, ease: 'easeInOut' }}
+          animate={reduced ? {} : { scale: [1, 1.03, 1] }}
+          transition={{ repeat: Infinity, duration: 3, ease: 'easeInOut' }}
+          whileTap={reduced ? undefined : { scale: 1.06 }}
+          style={shadow}
         >
           <SealFace size={size} />
         </motion.div>
@@ -121,48 +141,34 @@ export default function WaxSeal({ size = 132, mode = 'breakable', onBroken, aria
       <AnimatePresence>
         {broken && (
           <>
-            {/* the two halves fly apart */}
             <motion.div
               className="absolute inset-0"
-              style={half('left')}
-              initial={{ x: 0, rotate: 0, opacity: 1 }}
-              animate={
-                reduced
-                  ? { opacity: 0 }
-                  : { x: -size * 0.45, rotate: -22, opacity: 0 }
-              }
-              transition={{ duration: 0.7, ease: [0.32, 0, 0.67, 0] }}
+              style={{ ...half('left'), ...shadow }}
+              initial={{ x: 0, rotate: 0, opacity: 1, scale: 1.06 }}
+              animate={reduced ? { opacity: 0 } : { x: -size * 0.5, y: 8, rotate: -24, opacity: 0 }}
+              transition={{ duration: 0.6, ease: [0.32, 0, 0.67, 0] }}
             >
               <SealFace size={size} />
             </motion.div>
             <motion.div
               className="absolute inset-0"
-              style={half('right')}
-              initial={{ x: 0, rotate: 0, opacity: 1 }}
-              animate={
-                reduced
-                  ? { opacity: 0 }
-                  : { x: size * 0.45, rotate: 22, opacity: 0 }
-              }
-              transition={{ duration: 0.7, ease: [0.32, 0, 0.67, 0] }}
+              style={{ ...half('right'), ...shadow }}
+              initial={{ x: 0, rotate: 0, opacity: 1, scale: 1.06 }}
+              animate={reduced ? { opacity: 0 } : { x: size * 0.5, y: 8, rotate: 24, opacity: 0 }}
+              transition={{ duration: 0.6, ease: [0.32, 0, 0.67, 0] }}
             >
               <SealFace size={size} />
             </motion.div>
-            {/* tiny wax particles */}
+            {/* particles on a physics arc: fling up, fall down, fade */}
             {!reduced &&
               PARTICLES.map((p, i) => (
                 <motion.span
                   key={i}
-                  className="absolute rounded-full bg-rose"
-                  style={{
-                    width: p.s,
-                    height: p.s,
-                    left: '50%',
-                    top: '50%',
-                  }}
+                  className={`absolute rounded-full ${p.gold ? 'bg-gold' : 'bg-rose'}`}
+                  style={{ width: p.s, height: p.s, left: '50%', top: '50%' }}
                   initial={{ x: 0, y: 0, opacity: 1, scale: 1 }}
-                  animate={{ x: p.x, y: p.y, opacity: 0, scale: 0.4 }}
-                  transition={{ duration: 0.65, ease: 'easeOut' }}
+                  animate={{ x: p.x, y: [0, p.up, p.down], opacity: [1, 1, 0], scale: 0.5 }}
+                  transition={{ duration: 0.6, times: [0, 0.38, 1], ease: 'easeOut' }}
                 />
               ))}
           </>
