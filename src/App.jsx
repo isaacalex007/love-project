@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { AnimatePresence } from 'framer-motion'
 import Background from './components/Background'
 import ProgressRule from './components/ProgressRule'
-import SoundtrackToggle from './components/SoundtrackToggle'
+import { SoundtrackProvider } from './components/SoundtrackToggle'
 import Screen1Summons from './screens/Screen1Summons'
 import Screen2Case from './screens/Screen2Case'
 import Screen3Defense from './screens/Screen3Defense'
@@ -31,13 +31,12 @@ export default function App() {
   ]
 
   return (
-    <>
+    <SoundtrackProvider>
       <Background />
       <ProgressRule step={step} total={TOTAL_STEPS} />
       <main className="relative overflow-x-clip">
         <AnimatePresence mode="wait">{screens[step]}</AnimatePresence>
       </main>
-      <SoundtrackToggle />
-    </>
+    </SoundtrackProvider>
   )
 }

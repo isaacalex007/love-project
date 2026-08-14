@@ -4,6 +4,7 @@ import WaxSeal from '../components/WaxSeal'
 import Chip from '../components/Chip'
 import Accent from '../components/Accents'
 import PoetryHeart from '../components/PoetrySheet'
+import SoundtrackToggle from '../components/SoundtrackToggle'
 
 /**
  * Screen 1 — The Summons. Every line is sharp from first paint; breaking
@@ -19,8 +20,9 @@ export default function Screen1Summons({ onNext }) {
       animate={{ opacity: 1, y: 0 }}
       exit={reduced ? { opacity: 0 } : { opacity: 0, x: -40 }}
       transition={{ type: 'spring', stiffness: 260, damping: 24 }}
-      className="relative min-h-dvh flex flex-col items-center justify-center px-4 pt-[76px] pb-10"
+      className="relative min-h-dvh flex flex-col items-center justify-center px-4 pt-8 pb-10"
     >
+      <SoundtrackToggle className="mb-2.5" />
       <div className="glass-card relative w-full max-w-md px-6 py-10 text-center">
         <PoetryHeart />
         <Accent icon="scales" className="bottom-5 left-5" slow />

@@ -1,16 +1,13 @@
 import { motion, useReducedMotion } from 'framer-motion'
-import config from '../config'
-
-// The soundtrack toggle floats at the top of the viewport; reserve headroom
-// above the card so they never collide.
-const soundtrackOn = config.soundtrack.enabled && Boolean(config.soundtrack.src)
+import SoundtrackToggle from './SoundtrackToggle'
 
 const SPRING = { type: 'spring', stiffness: 260, damping: 24 }
 
 /**
- * Shared step wrapper: a frosted-glass "document" card gliding in from the
- * folder — incoming from +40px with spring, outgoing slides -40px and
- * fades. Children stagger in 70ms apart via the exported <Item>.
+ * Shared step wrapper: the soundtrack toggle sits centered directly above
+ * the frosted-glass "document" card (10px gap) and glides with it —
+ * incoming from +40px with spring, outgoing slides -40px and fades.
+ * Children stagger in 70ms apart via the exported <Item>.
  * Text is never blurred, in transit or at rest.
  */
 export default function PageShell({ children, className = '', cardClassName = '' }) {
@@ -21,10 +18,9 @@ export default function PageShell({ children, className = '', cardClassName = ''
       animate={{ opacity: 1, x: 0 }}
       exit={reduced ? { opacity: 0 } : { opacity: 0, x: -40 }}
       transition={{ x: SPRING, opacity: { duration: 0.3 } }}
-      className={`relative min-h-dvh flex flex-col items-center justify-center px-4 ${
-        soundtrackOn ? 'pt-[76px]' : 'pt-12'
-      } pb-10 ${className}`}
+      className={`relative min-h-dvh flex flex-col items-center justify-center px-4 pt-8 pb-10 ${className}`}
     >
+      <SoundtrackToggle className="mb-2.5" />
       <motion.div
         variants={{
           hidden: {},
