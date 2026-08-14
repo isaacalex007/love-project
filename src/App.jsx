@@ -3,17 +3,13 @@ import { AnimatePresence } from 'framer-motion'
 import Background from './components/Background'
 import ProgressRule from './components/ProgressRule'
 import SoundtrackToggle from './components/SoundtrackToggle'
-import Screen0Seal from './screens/Screen0Seal'
-import Screen1Caption from './screens/Screen1Caption'
-import Screen2ExhibitA from './screens/Screen2ExhibitA'
-import Screen3ExhibitB from './screens/Screen3ExhibitB'
-import Screen4ExhibitC from './screens/Screen4ExhibitC'
-import Screen5Motion from './screens/Screen5Motion'
-import Screen6Directions from './screens/Screen6Directions'
-import Screen7Verdict from './screens/Screen7Verdict'
-import Screen8Judgment from './screens/Screen8Judgment'
+import Screen1Summons from './screens/Screen1Summons'
+import Screen2Case from './screens/Screen2Case'
+import Screen3Defense from './screens/Screen3Defense'
+import Screen4Ruling from './screens/Screen4Ruling'
+import Screen5Verdict from './screens/Screen5Verdict'
 
-const TOTAL_STEPS = 8
+const TOTAL_STEPS = 4 // five screens, progress fills over four advances
 
 /**
  * The whole case is a single state machine: a step index plus her selections.
@@ -27,15 +23,11 @@ export default function App() {
   const select = (key, option) => setSelections((sel) => ({ ...sel, [key]: option }))
 
   const screens = [
-    <Screen0Seal key={0} onNext={next} />,
-    <Screen1Caption key={1} onNext={next} />,
-    <Screen2ExhibitA key={2} onNext={next} />,
-    <Screen3ExhibitB key={3} onNext={next} />,
-    <Screen4ExhibitC key={4} onNext={next} />,
-    <Screen5Motion key={5} onNext={next} />,
-    <Screen6Directions key={6} selections={selections} onSelect={select} onNext={next} />,
-    <Screen7Verdict key={7} onGranted={next} />,
-    <Screen8Judgment key={8} selections={selections} />,
+    <Screen1Summons key={0} onNext={next} />,
+    <Screen2Case key={1} onNext={next} />,
+    <Screen3Defense key={2} onNext={next} />,
+    <Screen4Ruling key={3} selections={selections} onSelect={select} onNext={next} />,
+    <Screen5Verdict key={4} selections={selections} />,
   ]
 
   return (

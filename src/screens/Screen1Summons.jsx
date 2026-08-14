@@ -6,12 +6,11 @@ import Chip from '../components/Chip'
 import Accent from '../components/Accents'
 
 /**
- * Screen 0 — The Sealed File. The card rises in with the record softly
- * blurred behind the seal; breaking the seal unblurs it (8px→0) as the
- * halves fly apart, then the case opens.
+ * Screen 1 — The Summons. The record sits softly blurred behind the seal;
+ * breaking the seal (the hero) unblurs it and opens the case.
  */
-export default function Screen0Seal({ onNext }) {
-  const { caseMeta, her } = config
+export default function Screen1Summons({ onNext }) {
+  const { summons } = config
   const reduced = useReducedMotion()
   const [broken, setBroken] = useState(false)
 
@@ -29,47 +28,39 @@ export default function Screen0Seal({ onNext }) {
 
         <div className="flex justify-center mb-6">
           <Chip tone="wine" entrance="drop" rotate={-3} delay={0.5}>
-            {caseMeta.confidentialStamp}
+            {summons.chip}
           </Chip>
         </div>
 
-        {/* the record, softly blurred until the seal breaks */}
         <motion.div
           initial={reduced ? {} : { filter: 'blur(8px)' }}
           animate={reduced ? {} : { filter: broken ? 'blur(0px)' : 'blur(8px)' }}
           transition={{ duration: 0.5, delay: broken ? 0.1 : 0 }}
         >
-          <h1 className="font-sans font-bold text-[19px] leading-snug tracking-[-0.02em]">
-            {caseMeta.court}
+          <h1 className="font-sans font-bold text-[20px] leading-snug tracking-[-0.02em]">
+            {summons.court}
           </h1>
-          <p className="text-sm text-ink/60 mt-1">{caseMeta.holden}</p>
-          <p className="label text-[10px] text-ink/50 mt-3">{caseMeta.suitNo}</p>
-
-          <div className="mt-6">
-            <p className="text-sm text-ink/60">For the attention of:</p>
-            <p className="font-accent italic text-[30px] leading-tight text-wine mt-1">
-              Barr. {her.fullFirstName} {her.surname}
-            </p>
-          </div>
+          <p className="text-[15px] text-ink/70 mt-3">{summons.attention}</p>
         </motion.div>
 
-        <div className="mt-8 flex justify-center">
+        <p className="font-sans font-semibold text-[17px] mt-5">{summons.summoned}</p>
+
+        <div className="mt-7 flex justify-center">
           <WaxSeal
             onCrackStart={() => setBroken(true)}
             onBroken={onNext}
-            ariaLabel="Break the seal and open the case file"
+            ariaLabel="Break the seal and open the case"
           />
         </div>
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1 }}
+          className="label text-[10px] text-ink/45 mt-4"
+        >
+          {summons.sealHint}
+        </motion.p>
       </div>
-
-      <motion.p
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1 }}
-        className="text-sm text-ink/60 italic max-w-[300px] mt-6 text-center"
-      >
-        {caseMeta.sealInstruction}
-      </motion.p>
     </motion.section>
   )
 }
