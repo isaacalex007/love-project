@@ -23,6 +23,7 @@ export function SoundtrackProvider({ children }) {
       audio.pause()
       setPlaying(false)
     } else {
+      audio.currentTime = 0 // always from the top
       audio.play().then(() => setPlaying(true)).catch(() => {})
     }
   }

@@ -140,7 +140,10 @@ function Judgment({ selections }) {
 
   const dateType = selections.dateType
   const weekend = selections.weekend
-  const weekendMsg = weekend?.ownDate ? weekend.shortText : weekend?.label
+  // If she named her own date, her words override the placeholder
+  const ownDateText = selections.customDate?.trim()
+  const weekendDisplay = weekend?.ownDate ? ownDateText || weekend.label : weekend?.label
+  const weekendMsg = weekend?.ownDate ? ownDateText || weekend.shortText : weekend?.label
 
   const message = judgment.whatsappTemplate
     .replace('{dateType}', dateType?.shortText ?? '')
@@ -195,7 +198,7 @@ function Judgment({ selections }) {
         <Item>
           <div className="glass-pill !rounded-2xl px-4 py-4 text-center">
             <p className="text-[15px] leading-relaxed text-ink font-semibold">
-              📍 {dateType?.label} — 📅 {weekend?.label}
+              📍 {dateType?.label} — 📅 {weekendDisplay}
             </p>
             <p className="text-[15px] leading-relaxed text-ink/85 mt-1.5">{judgment.handleLine}</p>
           </div>

@@ -77,6 +77,8 @@ const config = {
       { id: 'w3', label: 'Sep 12' },
       { id: 'own', label: 'I’ll pick my own date', ownDate: true, shortText: 'a date I’ll name' },
     ],
+    // Shown when she picks her own date
+    customDatePlaceholder: 'Name it, My Lady — e.g. Sat, Sep 20',
     binding: 'I’ll come to Lagos. This is binding.',
     nextButton: 'To the verdict →',
   },

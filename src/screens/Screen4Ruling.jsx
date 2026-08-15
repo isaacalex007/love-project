@@ -1,4 +1,4 @@
-import { motion, useReducedMotion } from 'framer-motion'
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 import config from '../config'
 import PageShell, { Item } from '../components/PageShell'
 import PrimaryButton from '../components/PrimaryButton'
@@ -84,6 +84,28 @@ export default function Screen4Ruling({ selections, onSelect, onNext }) {
           </Item>
         ))}
       </div>
+
+      {/* her own date, named in her own words */}
+      <AnimatePresence>
+        {selections.weekend?.ownDate && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ type: 'spring', stiffness: 260, damping: 26 }}
+            className="overflow-hidden"
+          >
+            <input
+              type="text"
+              value={selections.customDate ?? ''}
+              onChange={(e) => onSelect('customDate', e.target.value)}
+              placeholder={ruling.customDatePlaceholder}
+              autoComplete="off"
+              className="glass-pill !rounded-[18px] w-full min-h-[48px] px-4 mt-1.5 text-[15px] text-ink placeholder:text-ink/40 bg-white/60 focus:outline-none focus:ring-2 focus:ring-rose/40"
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <Item>
         <p className="text-xs italic text-ink/55 mt-4 text-center">{ruling.binding}</p>

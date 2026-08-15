@@ -38,6 +38,12 @@ vercel --prod
 Pick an unguessable-but-pretty project name, e.g. `mo-fe-ni-sola` →
 `mo-fe-ni-sola.vercel.app`. The page carries `noindex, nofollow`.
 
+The WhatsApp link preview (Open Graph tags + `public/og-cover.jpg`)
+assumes `https://mo-fe-ni-sola.vercel.app`. **If you deploy under any
+other domain, update the two absolute URLs in `index.html`**
+(`og:image` and `og:url`) — WhatsApp needs absolute URLs for the
+preview card.
+
 **Before sending: test the full flow from a real phone** — break the seal,
 make both picks, try the denied button, grant the motion, and tap
 "Deliver the ruling" to confirm the WhatsApp message arrives pre-filled.

@@ -17,7 +17,7 @@ const TOTAL_STEPS = 4 // five screens, progress fills over four advances
  */
 export default function App() {
   const [step, setStep] = useState(0)
-  const [selections, setSelections] = useState({ dateType: null, weekend: null })
+  const [selections, setSelections] = useState({ dateType: null, weekend: null, customDate: '' })
 
   const next = () => setStep((s) => Math.min(s + 1, TOTAL_STEPS))
   const select = (key, option) => setSelections((sel) => ({ ...sel, [key]: option }))
